@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Background Image Animation with Neon Borders</title>
+<style>
+  /* Set up the body to occupy full viewport and hide overflow */
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Huwag hayaan lumabas ang content */
+    background-color: black; /* Base background color */
+    position: relative; /* For absolute positioning inside */
+  }
+
+  /* Full-screen background image, sakop ang buong screen */
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Sakop ang buong width ng screen */
+    height: 100%; /* Sakop ang buong height ng screen */
+    background-image: url('1.jpeg'); /* Initial image */
+    background-size: cover; /* Sakop ang buong screen nang walang cut */
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 1s ease; /* Mas mabagal na transition */
+    opacity: 1; /* Nagsisimula na fully visible */
+    z-index: 1; /* Layer sa ilalim */
+  }
+
+  /* Optional: gradient overlay para sa dagdag na color effect */
+  .gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 255, 0.4);
+    animation: bodyGradient 10s infinite linear; /* Mas mabagal na animation */
+    z-index: 2; /* Layer sa ibabaw ng background */
+  }
+
+  /* Neon border na may animated gradient */
+  .border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Sakop ang buong screen */
+    height: 100%;
+    box-sizing: border-box; /* Siguraduhing tama ang sizing */
+    border: 10px solid transparent; /* Transparent border para sa gradient */
+    border-image-slice: 1;
+    border-image-source: linear-gradient(45deg, magenta, deeppink, red, purple);
+    border-image-repeat: stretch;
+    margin: 0; /* Wala nang margin para eksaktong sakop ang buong screen */
+    animation: borderPulse 10s infinite linear;
+    z-index: 3; /* Layer sa ibabaw */
+  }
+
+  /* Animations para sa gradient overlay - rainbow colors from 0% to 100% */
+  @keyframes bodyGradient {
+    0% { background: rgba(255, 0, 255, 0.4); }          /* Magenta */
+    8.33% { background: rgba(255, 127, 0, 0.4); }       /* Orange */
+    16.66% { background: rgba(255, 255, 0, 0.4); }      /* Yellow */
+    25% { background: rgba(127, 255, 0, 0.4); }         /* Chartreuse */
+    33.33% { background: rgba(0, 255, 127, 0.4); }      /* Spring Green */
+    41.66% { background: rgba(0, 255, 255, 0.4); }      /* Cyan */
+    50% { background: rgba(0, 127, 255, 0.4); }         /* Azure */
+    58.33% { background: rgba(0, 0, 255, 0.4); }        /* Blue */
+    66.66% { background: rgba(127, 0, 255, 0.4); }      /* Violet */
+    75% { background: rgba(255, 0, 255, 0.4); }         /* Magenta */
+    83.33% { background: rgba(255, 0, 127, 0.4); }      /* Rose */
+    91.66% { background: rgba(255, 127, 0, 0.4); }      /* Orange again */
+    100% { background: rgba(255, 0, 255, 0.4); }        /* Magenta start again */
+  }
+
+  /* Animasyon para sa neon border, rainbow gradient colors from 0% to 100% */
+  @keyframes borderPulse {
+    0% { border-color: rgba(255, 0, 255, 0.8); }        /* Magenta */
+    8.33% { border-color: rgba(255, 127, 0, 0.8); }     /* Orange */
+    16.66% { border-color: rgba(255, 255, 0, 0.8); }    /* Yellow */
+    25% { border-color: rgba(127, 255, 0, 0.8); }       /* Chartreuse */
+    33.33% { border-color: rgba(0, 255, 127, 0.8); }    /* Spring Green */
+    41.66% { border-color: rgba(0, 255, 255, 0.8); }    /* Cyan */
+    50% { border-color: rgba(0, 127, 255, 0.8); }       /* Azure */
+    58.33% { border-color: rgba(0, 0, 255, 0.8); }      /* Blue */
+    66.66% { border-color: rgba(127, 0, 255, 0.8); }    /* Violet */
+    75% { border-color: rgba(255, 0, 255, 0.8); }       /* Magenta */
+    83.33% { border-color: rgba(255, 0, 127, 0.8); }    /* Rose */
+    91.66% { border-color: rgba(255, 127, 0, 0.8); }    /* Orange again */
+    100% { border-color: rgba(255, 0, 255, 0.8); }      /* Magenta start again */
+  }
+</style>
+</head>
+<body>
+  <!-- Background Image -->
+  <div class="background"></div>
+  <!-- Gradient Overlay with rainbow animation -->
+  <div class="gradient-overlay"></div>
+  <!-- Neon Border with rainbow pulse -->
+  <div class="border"></div>
+
+  <script>
+    const background = document.querySelector('.background');
+    const totalImages = 14; 
+    let index = 1; // Simula sa image 1
+
+    function changeImages() {
+      setInterval(() => {
+        // Fade out
+        background.style.transition = 'opacity 1s ease';
+        background.style.opacity = 0;
+        setTimeout(() => {
+          // Palitan ang background image
+          background.style.backgroundImage = `url('${index}.jpeg')`;
+          // Fade in muli
+          background.style.opacity = 1;
+          // Increment at mag-loop sa 1 hanggang totalImages (14)
+          index = (index % totalImages) + 1;
+        }, 1000); // Katumbas ng fade duration
+      }, 4000); // Bumabagal na sa 4 seconds
+    }
+
+    changeImages();
+  </script>
+</body>
+</html>
