@@ -106,7 +106,7 @@
 
   <script>
     const background = document.querySelector('.background');
-    const totalImages = 14; 
+    const totalImages = 13; 
     let index = 1; // Simula sa image 1
 
     function changeImages() {
@@ -119,7 +119,7 @@
           background.style.backgroundImage = `url('${index}.jpeg')`;
           // Fade in muli
           background.style.opacity = 1;
-          // Increment at mag-loop sa 1 hanggang totalImages (14)
+          // Increment at mag-loop sa 1 hanggang totalImages (13)
           index = (index % totalImages) + 1;
         }, 1000); // Katumbas ng fade duration
       }, 4000); // Bumabagal na sa 4 seconds
